@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Kredify Copilot</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+  <link rel="stylesheet" href="app.css">
+  <script src="config.js"></script>
+  <script src="vendor/marked.min.js" defer></script>
+  <script src="vendor/purify.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <!-- Shown until the session is confirmed -->
+  <main id="gate" class="gate" aria-live="polite">
+    <div class="gate-inner">
+      <h1 class="wordmark">Kredify Copilot</h1>
+      <p id="gate-message">Checking your session…</p>
+      <button id="sign-in" class="btn btn-primary" type="button" hidden>Sign in</button>
+    </div>
+  </main>
+
+  <div id="app" class="app" hidden>
+    <header class="topbar">
+      <span class="wordmark">Kredify Copilot</span>
+      <div class="who">
+        <span id="user-email"></span>
+        <span id="user-role" class="role"></span>
+        <button id="sign-out" class="btn btn-quiet" type="button">Sign out</button>
+      </div>
+    </header>
+
+    <aside class="brief" aria-label="Question settings">
+      <fieldset class="tasks">
+        <legend>What do you need?</legend>
+        <label class="task"><input type="radio" name="task" value="explain_policy" checked>
+          <span><strong>Explain a policy</strong><small>Rules, limits, conditions and exceptions</small></span></label>
+        <label class="task"><input type="radio" name="task" value="retrieve_info">
+          <span><strong>Find information</strong><small>A specific figure, step or requirement</small></span></label>
+        <label class="task" data-needs-case><input type="radio" name="task" value="summarize_case">
+          <span><strong>Summarize a merchant case</strong><small>Status, figures, gaps and applicable policy</small></span></label>
+        <label class="task"><input type="radio" name="task" value="draft_response">
+          <span><strong>Draft a reply</strong><small>A message for you to review and send</small></span></label>
+      </fieldset>
+
+      <div class="field" id="merchant-field">
+        <label for="merchant-id">Merchant ID</label>
+        <input id="merchant-id" name="merchant_id" autocomplete="off" spellcheck="false" maxlength="64" placeholder="e.g. M-10023" pattern="[A-Za-z0-9_\-]{1,64}">
+        <p class="hint" id="merchant-hint">Adds the merchant's case record to the answer.</p>
+      </div>
+
+      <p class="brief-note">Answers come from approved Kredify documents. Each question is answered on its own, and you remain responsible for any decision or message.</p>
+    </aside>
+
+    <main class="desk">
+      <section id="thread" class="thread" aria-live="polite" aria-label="Answers">
+        <div id="empty" class="empty">
+          <h2>Ask about a financing policy or a merchant case.</h2>
+          <p>Try “What documents are required for a working capital facility above NGN 5m?”</p>
+        </div>
+      </section>
+
+      <form id="composer" class="composer" autocomplete="off">
+        <label for="question" class="visually-hidden">Your question</label>
+        <textarea id="question" rows="2" maxlength="4000" required placeholder="Ask a question about Kredify financing policy"></textarea>
+        <div class="composer-row">
+          <span id="status" class="status" role="status"></span>
+          <button id="ask" class="btn btn-primary" type="submit">Ask</button>
+        </div>
+      </form>
+    </main>
+  </div>
+
+  <template id="slip-template">
+    <article class="slip">
+      <p class="slip-question"></p>
+      <div class="slip-body">
+        <div class="slip-answer">
+          <div class="notice" hidden></div>
+          <div class="answer-text"></div>
+          <div class="slip-actions">
+            <button class="btn btn-quiet copy" type="button">Copy answer</button>
+          </div>
+        </div>
+        <div class="evidence" aria-label="Evidence">
+          <div class="gauge">
+            <div class="gauge-head"><span class="gauge-label"></span><span class="gauge-value"></span></div>
+            <div class="gauge-scale" aria-hidden="true"><span class="gauge-fill"></span><span class="gauge-tick"></span></div>
+            <p class="gauge-caption"></p>
+          </div>
+          <h3 class="sources-title">Sources</h3>
+          <ol class="sources"></ol>
+        </div>
+      </div>
+    </article>
+  </template>
+</body>
+</html>

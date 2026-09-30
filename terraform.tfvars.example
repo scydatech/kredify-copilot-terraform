@@ -1,0 +1,20 @@
+aws_region  = "eu-central-1"
+environment = "dev"
+
+# Staff web interface (update once the frontend is hosted)
+cognito_callback_urls = ["http://localhost:3000/callback"]
+cognito_logout_urls   = ["http://localhost:3000/"]
+allowed_cors_origins  = ["http://localhost:3000"]
+
+# Who may publish into s3://<docs-bucket>/approved/ (leave empty in dev)
+document_publisher_principal_arns = []
+
+# Alarm notifications (confirm the subscription email AWS sends after apply)
+alarm_email = "chimomacynthia@gmail.com"
+
+# Set false if an org-wide trail already exists / Bedrock logging is managed centrally
+enable_cloudtrail               = true
+enable_model_invocation_logging = true
+
+# Guardrail: how strictly answers must match the sources (0-0.99; higher = stricter)
+grounding_threshold = 0.45

@@ -1,0 +1,25 @@
+# Terraform working files and state (state lives in S3)
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.plan
+crash.log
+crash.*.log
+
+# Real settings (commit terraform.tfvars.example instead)
+terraform.tfvars
+*.auto.tfvars
+
+# Build output and archives
+build/
+*.zip
+
+# Generated at deploy time
+frontend/config.js
+
+# Python and OS clutter
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
